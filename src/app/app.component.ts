@@ -6,21 +6,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'cartproject';
+  productList = [
+    { name: 'Samsung', price: 8799 },
+    { name: 'Granier cream', price: 999 },
+    { name: 'Gloves gloves', price: 454 },
+        { name: 'Dettol cream', price: 44 },
 
-  num1: number;
-  num2: number;
-  result: number;
-  add() {
-    this.result = this.num1 + this.num2;
+            { name: 'hanky gloves', price: 59 }
+
+  ];
+  cartProductList = [];
+
+  addProductToCart(product) {
+    const productExistInCart = this.cartProductList.find(({ name }) => name === product.name);
+    if (!productExistInCart) {
+      this.cartProductList.push({ ...product, num: 1 }); 
+      return;
+    }
+    productExistInCart.num += 1;
   }
-  substract() {
-    this.result = this.num1 - this.num2;
-  }
-  multiply() {
-    this.result = this.num1 * this.num2;
-  }
-  divide() {
-    this.result = this.num1 % this.num2;
+  removeProduct(product) {
+    this.cartProductList = this.cartProductList.filter(({ name }) => name !== product.name)
   }
 }
